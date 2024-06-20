@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - {{ report_name }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .standard { background-color: green; color: white; }
+        .master { background-color: gold; color: white; }
+        .contest { background-color: blue; color: white; }
+        .table th, .table td {
+            color: white;
+            vertical-align: middle;
+            white-space: normal; /* Allow text to wrap */
+            word-wrap: break-word; /* Ensure long words break correctly */
+        }
+        .table th {
+            white-space: nowrap;
+        }
+        .legend-icon {
+            margin-right: 5px;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+        }
+        .legend-standard { background-color: green; }
+        .legend-master { background-color: gold; }
+        .legend-contest { background-color: blue; }
+    </style>
+</head>
+
+<body class="bg-dark text-white">
+    <div class="container-fluid mt-5">
+        <h2 class="text-center">Reports - {{ report_name }}</h2>
+        <div class="table-responsive">
+            <table class="table table-dark table-bordered w-100">
+                <thead>
+                    <tr>
+                        <th>Member</th>
+                        {% for raid in raid_names %}
+                            <th>{{ raid|replace('_', ' ')|capitalize_properly }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in members %}
+                        <tr>
+                            <td>{{ member.displayName }}</td>
+                            {% for raid in raid_names %}
+                                <td class="{% if member.raids.get(raid) == 'standard' %}standard{% elif member.raids.get(raid) == 'master' %}master{% elif member.raids.get(raid) == 'contest' %}contest{% endif %}">
+                                    {% if member.raids.get(raid) == 'standard' %}
+                                        Standard
+                                    {% elif member.raids.get(raid) == 'master' %}
+                                        Master
+                                    {% elif member.raids.get(raid) == 'contest' %}
+                                        Contest
+                                    {% else %}
+                                        &nbsp;
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="legend mt-5 text-center">
+            <h5>Legend</h5>
+            <p>
+                <span class="legend-icon legend-standard"></span>Standard
+                &nbsp;|&nbsp;
+                <span class="legend-icon legend-master"></span>Master
+                &nbsp;|&nbsp;
+                <span class="legend-icon legend-contest"></span>Contest
+            </p>
+        </div>
+        <div class="text-center mt-3">
+            <a href="{{ url_for('main.home') }}" class="btn btn-primary">Back to Home</a>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

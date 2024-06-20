@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clan Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .card {
+            height: 100px; /* Set a fixed height for all member cards */
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-title {
+            margin-top: 10px; /* Add some space between elements if needed */
+        }
+
+        .leader {
+            color: gold;
+        }
+
+        .legend-icon {
+            margin-right: 5px;
+        }
+
+        .clan-details {
+            min-height: 150px; /* Set a minimum height for the clan details section */
+        }
+
+        .reports {
+            margin-bottom: 20px; /* Add some space below the reports section */
+            position: absolute;
+            top: 7px;
+            left: 250px;
+        }
+    </style>
+</head>
+
+<body class="bg-dark text-white">
+    <div class="reports">
+        <span class="reports-label"><b>Reports:</b></span>
+        <a href="{{ url_for('main.reports', report_name='Raids', clan_id=clan_data['groupId']) }}" class="btn btn-primary">Raids</a>
+    </div>
+
+    <div class="container mt-5">
+        <div class="card bg-secondary mb-3 clan-details">
+            <div class="card-body">
+                <p><h2>Clan Name: {{ clan_data['name'] }}</h2></p>
+                <p><b>Description:</b> {{ clan_data['about'] }}</p>
+                <p><b>Member Count:</b> {{ clan_data['memberCount'] }}</p>
+            </div>
+        </div>
+
+        <h2 class="text-center">Members</h2>
+        <div class="row">
+            {% for member in members %}
+            <div class="col-md-3 mb-3">
+                <div class="card bg-secondary">
+                    <div class="card-body text-center">
+                        <h5 class="card-title {{ 'leader' if member.memberType == 5 else '' }}">
+                            {{ member.displayName }}
+                            {% if member.memberType == 5 %}
+                                <i class="fas fa-crown"></i>
+                            {% elif member.memberType == 3 or member.memberType == 4 %}
+                                <i class="fas fa-star"></i>
+                            {% endif %}
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-3">
+            <a href="{{ url_for('main.home') }}" class="btn btn-primary">Back to Home</a>
+        </div>
+
+        <div class="legend mt-5 text-center">
+            <h5>Legend</h5>
+            <p>
+                <i class="fas fa-crown legend-icon"></i>Clan Leader
+                &nbsp;|&nbsp;
+                <i class="fas fa-star legend-icon"></i>Clan Admin
+            </p>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
