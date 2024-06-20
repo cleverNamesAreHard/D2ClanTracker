@@ -1,8 +1,7 @@
-
 # Destiny Clan Tracker
 
 ## Project Overview
-The Destiny Clan Tracker is a Flask-based web application that allows Destiny 2 clan leaders to track weekly clears of dungeons and raids by clan members. The application authenticates users via Bungie's OAuth service and utilizes the Bungie API to fetch relevant clan data.
+The [Destiny 2 Clan Tracker](https://www.d2clantracker.com/) is a Flask-based web application designed for Destiny 2 memers to monitor weekly activity completions by clan members. The app authenticates users via Bungie's OAuth service and retrieves clan data using the Bungie API.
 
 ## Features
 - User authentication with Bungie.net accounts.
@@ -10,36 +9,12 @@ The Destiny Clan Tracker is a Flask-based web application that allows Destiny 2 
 - Tracking of weekly clears for raids and dungeons.
 
 ## Technology Stack
-- **Flask**: Python web framework used for server-side logic.
-- **Requests**: Library used to handle HTTP requests to the Bungie API.
+- **Flask**: Python web framework for server-side logic.
+- **Flask-Talisman**: Security extension for setting HTTP headers.
+- **Gunicorn**: WSGI HTTP Server for UNIX.
 - **Jinja**: Templating engine for rendering the frontend.
+- **asyncio**: Asynchronous I/O for handling Bungie API requests.
+- **[aiobungie](https://github.com/nxtlo/aiobungie)**: Asynchronous Bungie API wrapper. 
 
-## Getting Started
-
-### Prerequisites
-- Python 3.6+
-- Flask
-- Requests
-
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/destiny-clan-tracker.git
-   ```
-2. Install the required packages:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Run the application:
-   ```bash
-   python app.py
-   ```
-
-### Configuration
-- Ensure you have the `client_id`, `client_secret`, and `api_key` set in your environment variables or directly in the application.
-
-## Contributing
-Contributions are welcome! Please read the contributing guidelines and code of conduct before making pull requests.
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Shout-Out
+I just wanted to give the folks over at `aiobungie` a **MASSIVE** shout-out.  I'm not affiliated, but when fighting with the Bungie API failed, their project saved me.  Their stuff is incredibly well-documented, and designed to make it easy for folks to roll out new software based off the Bungie API.  Amazing, amazing job, team!  Thank you for all your hard work on this!  I'll work to ensure there's a footer on my page pointing to y'all as well.
